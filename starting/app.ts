@@ -1,21 +1,20 @@
-enum Role { ADMIN, READ_ONLY, AUTHOR }; // same to below
-// const ADMIN = 0;
-// const READ_ONLY = 1;
-// const AUTHOR = 2;
+type Combine = number | string;
+type ResultDescription = 'as number' | 'as text'
 
-const person= {
-    name: "Alex",
-    age: 21,
-    hobbies: ["Sports", "Cooking"],
-    role: Role.ADMIN
+function combine(n1: Combine, n2: Combine, resultType: ResultDescription) {
+    let res;
+
+    if (typeof n1 === "number" && typeof n2 === "number" || resultType === 'as number') {
+        res = +n1 + +n2;
+    } else {
+        res = n1.toString() + n2.toString();
+    }
+
+    return res;  
 }
 
-console.log(person.name); 
+console.log(combine(18, 31, 'as number'));
 
-for(const hobby of person.hobbies) {
-    console.log(hobby.toUpperCase());
-}
+console.log(combine('18', '31', 'as number'));
 
-if (person.role === Role.ADMIN) {
-    console.log('is admin');
-}
+console.log(combine('Max', 'Anna', 'as text'));

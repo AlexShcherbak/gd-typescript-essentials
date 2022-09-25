@@ -1,24 +1,13 @@
-var Role;
-(function (Role) {
-    Role[Role["ADMIN"] = 0] = "ADMIN";
-    Role[Role["READ_ONLY"] = 1] = "READ_ONLY";
-    Role[Role["AUTHOR"] = 2] = "AUTHOR";
-})(Role || (Role = {}));
-; // same to below
-// const ADMIN = 0;
-// const READ_ONLY = 1;
-// const AUTHOR = 2;
-var person = {
-    name: "Alex",
-    age: 21,
-    hobbies: ["Sports", "Cooking"],
-    role: Role.ADMIN
-};
-console.log(person.name);
-for (var _i = 0, _a = person.hobbies; _i < _a.length; _i++) {
-    var hobby = _a[_i];
-    console.log(hobby.toUpperCase());
+function combine(n1, n2, resultType) {
+    var res;
+    if (typeof n1 === "number" && typeof n2 === "number" || resultType === 'as number') {
+        res = +n1 + +n2;
+    }
+    else {
+        res = n1.toString() + n2.toString();
+    }
+    return res;
 }
-if (person.role === Role.ADMIN) {
-    console.log('is admin');
-}
+console.log(combine(18, 31, 'as number'));
+console.log(combine('18', '31', 'as number'));
+console.log(combine('Max', 'Anna', 'as text'));
