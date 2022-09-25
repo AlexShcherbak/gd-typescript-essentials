@@ -1,58 +1,39 @@
-const names: Array<string> = ["Max", "Alex"];
+// function Logger(constructor: Function) {
+//     console.log('Logging...');
+//     console.log(constructor);
+// }
+// @Logger
 
-const promise: Promise<string> = new Promise((resolve, reject) => {
-  setTimeout(() => {
-    resolve("COngrats, DONE");
-  }, 1500);
-});
-
-function merge<T extends object, U extends object>(obj1: T, obj2: U) {
-  return Object.assign(obj1, obj2);
-}
-
-const mergeObj = merge({ name: "Max" }, { age: 22 });
-
-console.log(mergeObj.age);
-
-interface Lengthy {
-  length: number;
-}
-
-function countAndDescribe<T extends Lengthy>(element: T): [T, string] {
-  let describe = "Got no value";
-
-  if (element.length) {
-    describe = `Got ${element.length} items`;
-  }
-
-  return [element, describe];
-}
-
-console.log(countAndDescribe("sup"));
-
-function extractAndConvert<T extends object, U extends keyof T>(
-  obj: T,
-  key: U
-) {
-  // keyof
-  return obj[key];
-}
-
-extractAndConvert({ name: "John" }, "name");
-
-class DataStorage<T extends string | number | boolean> {
-  // Generic classes
-  private data: T[] = [];
-
-  addItem(item: T) {
-    this.data.push(item);
-  }
-
-  removeItem(item: T) {
-    this.data.splice(this.data.indexOf(item), 1);
-  }
-
-  getItems() {
-    return [...this.data];
+function Logger(str: string) {
+  return function (constructor: Function) {
+    console.log(str);
+    console.log(constructor);  
   }
 }
+
+function withTemplate(template: string, hookId: string) {
+  return function (constructor: any) {
+      console.log('template');
+      const hookEl = document.getElementById(hookId);
+      const p = new constructor()
+
+      if (hookEl) {
+          hookEl.innerHTML = template;
+          hookEl.querySelector('h1')!.textContent = p.name;
+      }
+  }
+}
+
+@Logger('Log in Person')
+@withTemplate('<h1>Log in Person</h1>', 'root')
+class Person {
+  name: string = "SIU";
+
+  constructor() {
+      console.log('Creating person object.');
+  }
+}
+
+const pers = new Person();
+
+console.log(pers);

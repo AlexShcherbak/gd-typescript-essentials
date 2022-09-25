@@ -1,49 +1,36 @@
-var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
-    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
-        if (ar || !(i in from)) {
-            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
-            ar[i] = from[i];
-        }
-    }
-    return to.concat(ar || Array.prototype.slice.call(from));
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var names = ["Max", "Alex"];
-var promise = new Promise(function (resolve, reject) {
-    setTimeout(function () {
-        resolve("COngrats, DONE");
-    }, 1500);
-});
-function merge(obj1, obj2) {
-    return Object.assign(obj1, obj2);
+function Logger(str) {
+    return function (constructor) {
+        console.log(str);
+        console.log(constructor);
+    };
 }
-var mergeObj = merge({ name: "Max" }, { age: 22 });
-console.log(mergeObj.age);
-function countAndDescribe(element) {
-    var describe = "Got no value";
-    if (element.length) {
-        describe = "Got ".concat(element.length, " items");
+function withTemplate(template, hookId) {
+    return function (constructor) {
+        console.log('template');
+        const hookEl = document.getElementById(hookId);
+        const p = new constructor();
+        if (hookEl) {
+            hookEl.innerHTML = template;
+            hookEl.querySelector('h1').textContent = p.name;
+        }
+    };
+}
+let Person = class Person {
+    constructor() {
+        this.name = "SIU";
+        console.log('Creating person object.');
     }
-    return [element, describe];
-}
-console.log(countAndDescribe("sup"));
-function extractAndConvert(obj, key) {
-    // keyof
-    return obj[key];
-}
-extractAndConvert({ name: "John" }, "name");
-var DataStorage = /** @class */ (function () {
-    function DataStorage() {
-        // Generic classes
-        this.data = [];
-    }
-    DataStorage.prototype.addItem = function (item) {
-        this.data.push(item);
-    };
-    DataStorage.prototype.removeItem = function (item) {
-        this.data.splice(this.data.indexOf(item), 1);
-    };
-    DataStorage.prototype.getItems = function () {
-        return __spreadArray([], this.data, true);
-    };
-    return DataStorage;
-}());
+};
+Person = __decorate([
+    Logger('Log in Person'),
+    withTemplate('<h1>Log in Person</h1>', 'root')
+], Person);
+const pers = new Person();
+console.log(pers);
