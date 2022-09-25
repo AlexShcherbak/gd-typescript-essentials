@@ -1,7 +1,14 @@
-function add(n1, n2) {
-    return n1 + n2;
+var person = {
+    name: "Alex",
+    age: 21,
+    hobbies: ["Sports", "Cooking"],
+    role: [2, 'author']
+};
+// person.role.push("admin"); 
+// person.role[1] = 10; 
+console.log(person.name);
+for (var _i = 0, _a = person.hobbies; _i < _a.length; _i++) {
+    var hobby = _a[_i];
+    console.log(hobby.toUpperCase());
+    // console.log(hobby.map());
 }
-var number1 = 10;
-var number2 = 5.8;
-var result = add(number1, number2);
-console.log(result);
