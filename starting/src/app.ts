@@ -1,87 +1,58 @@
-abstract class Department {
-  private employees: string[] = [];
+const names: Array<string> = ["Max", "Alex"];
 
-  constructor(protected readonly id: string, private name: string) {
-    this.id = id;
-    this.name = name;
-  }
+const promise: Promise<string> = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve("COngrats, DONE");
+  }, 1500);
+});
 
-  abstract describe(): void;
-
-  addEmployee(employee: string) {
-    this.employees.push(employee);
-  }
-
-  printEmployeeInformation() {
-    console.log(this.employees.length);
-    console.log(this.employees);
-  }
+function merge<T extends object, U extends object>(obj1: T, obj2: U) {
+  return Object.assign(obj1, obj2);
 }
 
-class ITDepartment extends Department {
-  constructor(id: string, public admins: string[]) {
-    super(id, "IT");
-    this.admins = admins;
-  }
+const mergeObj = merge({ name: "Max" }, { age: 22 });
 
-  describe() {
-    console.log(`Department(${this.id}): IT`);
-  }
+console.log(mergeObj.age);
+
+interface Lengthy {
+  length: number;
 }
 
-class AccountingDepartment extends Department {
-  private static instance: AccountingDepartment;
-  private constructor(id: string) {
-    super(id, "Accounting");
+function countAndDescribe<T extends Lengthy>(element: T): [T, string] {
+  let describe = "Got no value";
+
+  if (element.length) {
+    describe = `Got ${element.length} items`;
   }
 
-  describe(): void {
-    console.log(`Department(${this.id}): Accounting`);
+  return [element, describe];
+}
+
+console.log(countAndDescribe("sup"));
+
+function extractAndConvert<T extends object, U extends keyof T>(
+  obj: T,
+  key: U
+) {
+  // keyof
+  return obj[key];
+}
+
+extractAndConvert({ name: "John" }, "name");
+
+class DataStorage<T extends string | number | boolean> {
+  // Generic classes
+  private data: T[] = [];
+
+  addItem(item: T) {
+    this.data.push(item);
   }
 
-  static getInstance() {
-    if (AccountingDepartment.instance) {
-      return this.instance;
-    }
+  removeItem(item: T) {
+    this.data.splice(this.data.indexOf(item), 1);
+  }
 
-    this.instance = new AccountingDepartment("d2");
-    return this.instance;
+  getItems() {
+    return [...this.data];
   }
 }
-
-const it = new ITDepartment("v1", ["Oleh", "Decor"]);
-
-it.addEmployee("Ann");
-it.addEmployee("Dil");
-
-it.printEmployeeInformation();
-
-it.describe();
-
-const accountingDepartment = AccountingDepartment.getInstance();
-const accountingDepartment2 = AccountingDepartment.getInstance();
-
-console.log(accountingDepartment, accountingDepartment2);
-
-
-interface Person {
-  name: string;
-  age: number;
-}
-
-let user1: Person;
-
-user1 = {
-  name: "Ann",
-  age: 21,
-};
-
-console.log(user1);
-
-interface addFn {
-  (a: number, b: number): number;
-}
-
-const add: addFn = (n1, n2) => n1 + n2;
-
-console.log(add(1, 2));

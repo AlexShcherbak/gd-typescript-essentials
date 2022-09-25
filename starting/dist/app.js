@@ -1,78 +1,49 @@
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var Department = /** @class */ (function () {
-    function Department(id, name) {
-        this.id = id;
-        this.name = name;
-        this.employees = [];
-        this.id = id;
-        this.name = name;
-    }
-    Department.prototype.addEmployee = function (employee) {
-        this.employees.push(employee);
-    };
-    Department.prototype.printEmployeeInformation = function () {
-        console.log(this.employees.length);
-        console.log(this.employees);
-    };
-    return Department;
-}());
-var ITDepartment = /** @class */ (function (_super) {
-    __extends(ITDepartment, _super);
-    function ITDepartment(id, admins) {
-        var _this = _super.call(this, id, "IT") || this;
-        _this.admins = admins;
-        _this.admins = admins;
-        return _this;
-    }
-    ITDepartment.prototype.describe = function () {
-        console.log("Department(".concat(this.id, "): IT"));
-    };
-    return ITDepartment;
-}(Department));
-var AccountingDepartment = /** @class */ (function (_super) {
-    __extends(AccountingDepartment, _super);
-    function AccountingDepartment(id) {
-        return _super.call(this, id, "Accounting") || this;
-    }
-    AccountingDepartment.prototype.describe = function () {
-        console.log("Department(".concat(this.id, "): Accounting"));
-    };
-    AccountingDepartment.getInstance = function () {
-        if (AccountingDepartment.instance) {
-            return this.instance;
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
         }
-        this.instance = new AccountingDepartment("d2");
-        return this.instance;
-    };
-    return AccountingDepartment;
-}(Department));
-var it = new ITDepartment("v1", ["Oleh", "Decor"]);
-it.addEmployee("Ann");
-it.addEmployee("Dil");
-it.printEmployeeInformation();
-it.describe();
-var accountingDepartment = AccountingDepartment.getInstance();
-var accountingDepartment2 = AccountingDepartment.getInstance();
-console.log(accountingDepartment, accountingDepartment2);
-var user1;
-user1 = {
-    name: "Ann",
-    age: 21
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
 };
-console.log(user1);
-var add = function (n1, n2) { return n1 + n2; };
-console.log(add(1, 2));
+var names = ["Max", "Alex"];
+var promise = new Promise(function (resolve, reject) {
+    setTimeout(function () {
+        resolve("COngrats, DONE");
+    }, 1500);
+});
+function merge(obj1, obj2) {
+    return Object.assign(obj1, obj2);
+}
+var mergeObj = merge({ name: "Max" }, { age: 22 });
+console.log(mergeObj.age);
+function countAndDescribe(element) {
+    var describe = "Got no value";
+    if (element.length) {
+        describe = "Got ".concat(element.length, " items");
+    }
+    return [element, describe];
+}
+console.log(countAndDescribe("sup"));
+function extractAndConvert(obj, key) {
+    // keyof
+    return obj[key];
+}
+extractAndConvert({ name: "John" }, "name");
+var DataStorage = /** @class */ (function () {
+    function DataStorage() {
+        // Generic classes
+        this.data = [];
+    }
+    DataStorage.prototype.addItem = function (item) {
+        this.data.push(item);
+    };
+    DataStorage.prototype.removeItem = function (item) {
+        this.data.splice(this.data.indexOf(item), 1);
+    };
+    DataStorage.prototype.getItems = function () {
+        return __spreadArray([], this.data, true);
+    };
+    return DataStorage;
+}());
