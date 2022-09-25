@@ -1,9 +1,21 @@
-function add(n1: number, n2: number) {
-    return n1 + n2;
+enum Role { ADMIN, READ_ONLY, AUTHOR }; // same to below
+// const ADMIN = 0;
+// const READ_ONLY = 1;
+// const AUTHOR = 2;
+
+const person= {
+    name: "Alex",
+    age: 21,
+    hobbies: ["Sports", "Cooking"],
+    role: Role.ADMIN
 }
 
-const number1 = 10;
-const number2 = 5.8;
+console.log(person.name); 
 
-const result = add(number1, number2);
-console.log(result);
+for(const hobby of person.hobbies) {
+    console.log(hobby.toUpperCase());
+}
+
+if (person.role === Role.ADMIN) {
+    console.log('is admin');
+}
