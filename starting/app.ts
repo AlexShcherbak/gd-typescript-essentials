@@ -1,20 +1,26 @@
-type Combine = number | string;
-type ResultDescription = 'as number' | 'as text'
-
-function combine(n1: Combine, n2: Combine, resultType: ResultDescription) {
-    let res;
-
-    if (typeof n1 === "number" && typeof n2 === "number" || resultType === 'as number') {
-        res = +n1 + +n2;
-    } else {
-        res = n1.toString() + n2.toString();
-    }
-
-    return res;  
+function add(n1: number, n2: number) {
+  return n1 + n2;
 }
 
-console.log(combine(18, 31, 'as number'));
+function printResult(number: number): void {
+  console.log("Result: " + number);
+}
 
-console.log(combine('18', '31', 'as number'));
+function addAndHandle(n1: number, n2: number, cb: (num: number) => void) {
+  const res = n1 + n2;
+  cb(res);
+}
 
-console.log(combine('Max', 'Anna', 'as text'));
+const num1 = 5;
+const num2 = 7.1;
+
+let combineValues: (a: number, b: number) => number;
+combineValues = add;
+
+printResult(add(num1, num2));
+
+console.log(combineValues(5, 12));
+
+addAndHandle(10, 10, (res) => {
+  console.log(res);
+});

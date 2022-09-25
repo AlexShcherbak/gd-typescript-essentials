@@ -1,13 +1,19 @@
-function combine(n1, n2, resultType) {
-    var res;
-    if (typeof n1 === "number" && typeof n2 === "number" || resultType === 'as number') {
-        res = +n1 + +n2;
-    }
-    else {
-        res = n1.toString() + n2.toString();
-    }
-    return res;
+function add(n1, n2) {
+    return n1 + n2;
 }
-console.log(combine(18, 31, 'as number'));
-console.log(combine('18', '31', 'as number'));
-console.log(combine('Max', 'Anna', 'as text'));
+function printResult(number) {
+    console.log("Result: " + number);
+}
+function addAndHandle(n1, n2, cb) {
+    var res = n1 + n2;
+    cb(res);
+}
+var num1 = 5;
+var num2 = 7.1;
+var combineValues;
+combineValues = add;
+printResult(add(num1, num2));
+console.log(combineValues(5, 12));
+addAndHandle(10, 10, function (res) {
+    console.log(res);
+});
